@@ -1,8 +1,7 @@
-package dio.bookstore.configurations;
+package dio.bookstore.configuration;
 
-import dio.bookstore.models.Author;
-import dio.bookstore.models.BookAuthor;
-import dio.bookstore.models.Book;
+import dio.bookstore.model.Author;
+import dio.bookstore.model.Book;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,7 +14,7 @@ public class AppConfig {
     }
 
     @Bean
-    public BookAuthor getAutorLivro() {
+    public Author getAutorLivro() {
         return new Author();
     }
 }
