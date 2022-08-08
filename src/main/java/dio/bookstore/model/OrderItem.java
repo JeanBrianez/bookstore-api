@@ -11,24 +11,22 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tb_costumers")
-public class Costumer {
+@Table(name = "tb_order_item")
+public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long costumerId;
+    private Long orderItemId;
 
-    private String firstName;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Order order;
 
-    private String lastName;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Book book;
 
-    private String CEP;
+    private int quantity;
 
-    private String phone;
-
-    private String email;
-
-    private String img;
+    private int price;
 
     private final LocalDateTime created = LocalDateTime.now();
 

@@ -1,5 +1,6 @@
 package dio.bookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,19 +15,18 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tb_authors")
+@Table(name = "tb_publishers")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Author {
+public class Publisher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long authorId;
+    private Long publisherId;
 
-    private String firstName;
+    private String country;
 
-    private String lastName;
-
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Book> books = new ArrayList<>();
 
     private final LocalDateTime created = LocalDateTime.now();
