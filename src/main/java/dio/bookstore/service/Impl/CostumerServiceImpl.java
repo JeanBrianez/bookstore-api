@@ -14,11 +14,19 @@ import java.util.List;
 public class CostumerServiceImpl implements ICostumerService {
 
     @Autowired
-    private CostumerRepository repository;
+    private CostumerRepository costumerRepository;
 
     @Override
     public Costumer create(CostumerForm form) {
-        return null;
+        Costumer costumer = new Costumer();
+        costumer.setFirstName(form.getFirstName());
+        costumer.setLastName(form.getLastName());
+        costumer.setCEP(form.getCEP());
+        costumer.setPhone(form.getPhone());
+        costumer.setEmail(form.getEmail());
+        costumer.setImg(form.getImg());
+
+        return costumerRepository.save(costumer);
     }
 
     @Override

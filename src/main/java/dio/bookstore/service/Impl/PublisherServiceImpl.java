@@ -14,11 +14,15 @@ import java.util.List;
 public class PublisherServiceImpl implements IPublisherService {
 
     @Autowired
-    private PublisherRepository repository;
+    private PublisherRepository publisherRepository;
 
     @Override
     public Publisher create(PublisherForm form) {
-        return null;
+        Publisher publisher = new Publisher();
+        publisher.setName(form.getName());
+        publisher.setCountry(form.getCountry());
+
+        return publisherRepository.save(publisher);
     }
 
     @Override

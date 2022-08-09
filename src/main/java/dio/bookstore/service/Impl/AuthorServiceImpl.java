@@ -14,11 +14,15 @@ import java.util.List;
 public class AuthorServiceImpl implements IAuthorService {
 
     @Autowired
-    private AuthorRepository repository;
+    private AuthorRepository authorRepository;
 
     @Override
     public Author create(AuthorForm form) {
-        return null;
+        Author author = new Author();
+        author.setFirstName(form.getFirstName());
+        author.setLastName(form.getLastName());
+
+        return authorRepository.save(author);
     }
 
     @Override

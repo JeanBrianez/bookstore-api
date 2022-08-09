@@ -23,6 +23,8 @@ public class Publisher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long publisherId;
 
+    private String name;
+
     private String country;
 
     @OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY)

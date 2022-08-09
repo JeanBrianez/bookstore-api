@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BookForm {
     private String title;
-    private String author;
+    private Long AuthorId;
+    private Long PublisherId;
     private String ISBN;
     private String language;
     private String genre;
