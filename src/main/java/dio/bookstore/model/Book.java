@@ -23,11 +23,11 @@ public class Book {
     @Column(unique = true)
     private String ISBN;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "author_id")
     private Author author;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 

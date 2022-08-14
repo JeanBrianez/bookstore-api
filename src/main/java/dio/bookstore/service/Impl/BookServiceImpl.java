@@ -12,7 +12,12 @@ import dio.bookstore.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookServiceImpl implements IBookService {
@@ -47,22 +52,52 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
-    public List<Book> getAll() {
-        return bookRepository.findAll();
-    }
-
-    @Override
     public Book get(Long id) {
         return null;
     }
 
     @Override
-    public Book update(Long id, BookUpdateForm formUpdate) {
-        return null;
+    public Optional<Book> update(Long id, BookUpdateForm formUpdate) {
+        return bookRepository.findById(id)
+                .map(newBook -> {
+                    Author author = authorRepository.findById(formUpdate.getAuthorId()).get();
+                    Publisher publisher = publisherRepository.findById(formUpdate.getPublisherId()).get();
+                    newBook.setTitle(formUpdate.getTitle());
+                    newBook.setAuthor(author);
+                    newBook.setPublisher(publisher);
+                    newBook.setISBN(formUpdate.getISBN());
+                    newBook.setLanguage(formUpdate.getLanguage());
+                    newBook.setGenre(formUpdate.getGenre());
+                    newBook.setCategory(formUpdate.getCategory());
+                    newBook.setPublicationYear(formUpdate.getPublicationYear());
+                    newBook.setPrice(formUpdate.getPrice());
+                    newBook.setQuantity(formUpdate.getQuantity());
+                    newBook.setImg(formUpdate.getImg());
+                    newBook.setModified(LocalDateTime.now());
+                    return bookRepository.save(newBook);
+                });
     }
 
     @Override
     public void delete(Long id) {
+        bookRepository.deleteById(id);
+    }
+    @Override
+    public List<Book> getBooksFromPublisher(Long id) {
+        return null;
+    }
 
+    @Override
+    public List<Book> getAll(String price) {
+        if (price == null) {
+            return bookRepository.findAll();
+        }else {
+            return bookRepository.findByPrice(Float.parseFloat(price));
+        }
+    }
+
+    @Override
+    public Optional<Book> findById(long id) {
+        return bookRepository.findById(id);
     }
 }

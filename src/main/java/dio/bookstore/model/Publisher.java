@@ -29,7 +29,7 @@ public class Publisher {
 
     @OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Book> books = new ArrayList<>();
+    private List<Book> publisherBooks = new ArrayList<>();
 
     private final LocalDateTime created = LocalDateTime.now();
 

@@ -8,7 +8,9 @@ import dio.bookstore.service.IPublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PublisherServiceImpl implements IPublisherService {
@@ -27,7 +29,7 @@ public class PublisherServiceImpl implements IPublisherService {
 
     @Override
     public List<Publisher> getAll() {
-        return null;
+        return publisherRepository.findAll();
     }
 
     @Override
@@ -36,12 +38,23 @@ public class PublisherServiceImpl implements IPublisherService {
     }
 
     @Override
-    public Publisher update(Long id, PublisherUpdateForm formUpdate) {
-        return null;
+    public Optional<Publisher> update(Long id, PublisherUpdateForm formUpdate) {
+        return publisherRepository.findById(id)
+                .map(newPublisher -> {
+                    newPublisher.setCountry(formUpdate.getCountry());
+                    newPublisher.setName(formUpdate.getName());
+                    newPublisher.setModified(LocalDateTime.now());
+                    return publisherRepository.save(newPublisher);
+                });
     }
 
     @Override
     public void delete(Long id) {
+        publisherRepository.deleteById(id);
+    }
 
+    @Override
+    public Optional<Publisher> findById(long id) {
+        return publisherRepository.findById(id);
     }
 }

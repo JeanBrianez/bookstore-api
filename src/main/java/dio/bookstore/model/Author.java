@@ -1,5 +1,6 @@
 package dio.bookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,7 +28,8 @@ public class Author {
     private String lastName;
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private List<Book> books = new ArrayList<>();
+    @JsonIgnore
+    private List<Book> authorBooks = new ArrayList<>();
 
     private final LocalDateTime created = LocalDateTime.now();
 
